@@ -76,6 +76,8 @@ func main() {
 	var logger = new(log.Logger)
 	logger.SetOutput(os.Stdout)
 	logger.SetFlags(log.LstdFlags)
+	var db *sql.DB
+	var err error
 	conn := fmt.Sprintf("HOSTNAME=%s;PORT=%d;PROTOCOL=TCPIP;DATABASE=%s;UID=%s;PWD=%s", host, port, dbname, user, password)
 	if db, err = sql.Open("go_ibm_db", conn); err != nil {
 		log.Fatal(err)
