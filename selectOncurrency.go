@@ -6,6 +6,10 @@ import (
 	"fmt"
 	_ "github.com/ibmdb/go_ibm_db"
 	"log"
+	"math/rand"
+	"strconv"
+	"strings"
+	"time"
 )
 
 //发起并发查询SQL语句请求
@@ -42,9 +46,11 @@ func main() {
 	if stmt == "" {
 		panic("No sql")
 	}
+	rand.Seed(time.Now().Unix())
 	for i := 0; i < num_q; i++ {
 		go func() {
 			for {
+				stmt = strings.Replace(stmt, "suiji", strconv.Itoa(rand.Intn(10000)), -1)
 				if _, err := db.Exec(stmt); err != nil {
 					break
 				}
